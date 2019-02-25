@@ -1,3 +1,1 @@
-web/static/* linguist-generated=true
-*.js linguist-generated=true
-*.css linguist-generated=true
+web/static/* linguist-vendored
