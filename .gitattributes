@@ -1,1 +1,3 @@
-web/static/*.* linguist-generate=false
+web/static/* linguist-generate=true
+*.js linguist-generate=true
+*.css linguist-generate=true
