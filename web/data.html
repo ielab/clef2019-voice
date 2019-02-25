@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CLEF2019 Query Voice | admin</title>
+    {{ template "libraries" }}
+</head>
+<body>
+<main>
+    <article class="card">
+        <header>
+            <h1><a href="/admin">admin</a> - query data</h1>
+        </header>
+        <footer>
+            <div>
+                <h2>Exports</h2>
+                {{ if .Exports }}
+                    <h3>previous exports</h3>
+                    <div>
+
+                        {{ range $export := .Exports }}
+                            <a href="/export/{{ $export }}" class="stack button pseudo">{{ $export }}</a>
+                        {{ end }}
+                    </div>
+                {{ end }}
+                <a href="/admin/data/export" class="button">export data</a>
+            </div>
+            <hr/>
+            <div>
+                <h2>Progress</h2>
+                <p>completed {{ .Completed }}%</p>
+                <progress value="{{ .Completed }}" max="1" style="width: 100%;"></progress>
+            </div>
+            <hr/>
+            <h2>User breakdown</h2>
+            {{ range $user, $topics := .Users }}
+                <h3>{{ $user }}</h3>
+                <table style="width: 100%">
+                    <thead>
+                    <tr>
+                        <th>topic</th>
+                        <th>query</th>
+                        <th>audio</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{ range $topic := $topics }}
+                        <tr>
+                            {{ if $topic.Completed }}
+                                <td>{{ $topic.Topic }}</td>
+                                <td>{{ $topic.Query1 }}</td>
+                                <td>
+                                    <audio controls preload="auto" src="/audio/{{ $topic.Filename }}" type="audio/wav"></audio>
+                                </td>
+
+                            {{ else }}
+                                <td>{{ $topic.Topic }}</td>
+                                <td></td>
+                                <td></td>
+                            {{ end }}
+                        </tr>
+                    {{ end }}
+                    </tbody>
+                </table>
+            {{ end }}
+        </footer>
+    </article>
+</main>
+</body>
+</html>

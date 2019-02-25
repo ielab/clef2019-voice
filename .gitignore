@@ -1,0 +1,10 @@
+audio/
+export/
+topics/
+
+.idea/
+.DS_Store
+
+conf.db
+clef2019-voice
+config.toml

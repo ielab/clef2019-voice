@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CLEF2019 Query Voice | admin</title>
+    {{ template "libraries" }}
+</head>
+<body>
+<main>
+    <article class="card">
+        <header>
+            <h1><a href="/admin">admin</a> - user management</h1>
+        </header>
+        <footer>
+            {{ range $user := .Users }}
+                <b>{{ $user.Name }}</b>
+                <p>assigned topics:</p>
+                <div class="flex five">
+                    {{ range $topic := $user.Topics }}
+                        <div>
+                            <code>{{ $topic }}</code>
+                        </div>
+                    {{ end }}
+                </div>
+                <form action="/admin/user/remove" method="post">
+                    <label>
+                        <input type="hidden" name="user" value="{{ $user.Name }}">
+                        <button type="submit">remove participant</button>
+                    </label>
+                </form>
+                <hr/>
+            {{ end }}
+
+            <form action="/admin/user/add" method="post">
+                <label>name:<input name="user" type="text"></label>
+                <p>assign topics:</p>
+                <div class="flex five">
+                    {{ range $topic := .Topics }}
+                        <label><input type="checkbox" name="topics[]" value="{{ $topic }}"><span class="checkable">{{ $topic }}</span></label>
+                    {{ end }}
+                </div>
+                <label>
+                    <button type="submit">add participant</button>
+                </label>
+            </form>
+        </footer>
+    </article>
+</main>
+</body>
+</html>

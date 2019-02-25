@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CLEF2019 | Confirm {{ .Topic }}</title>
+    {{ template "libraries" }}
+</head>
+<body>
+{{ template "nav" }}
+<main>
+    <article class="card">
+        <header>
+            <h2>Complete!</h2>
+        </header>
+        <footer>
+            <p>The queries that you entered matched. You will be redirected in <span id="remaining">3</span> seconds.</p>
+            <p><a href="/voice/{{ .User }}">skip waiting</a></p>
+        </footer>
+    </article>
+</main>
+</body>
+<script type="text/javascript">
+    window.onload = function () {
+        var i = 3;
+        var timeout = i * 1000;
+        var el = document.getElementById("remaining");
+        window.setInterval(function () {
+            i--;
+            el.innerText = i.toString();
+        }, 1000);
+        window.setTimeout(function () {
+            window.location.href = "/voice/{{ .User }}"
+        }, timeout)
+    }
+</script>
+</html>

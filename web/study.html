@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CLEF2019 Query Voice</title>
+    {{ template "libraries" }}
+</head>
+<body>
+{{ template "nav" }}
+<main>
+    <article class="card">
+        <header><h2>Your assigned topics</h2></header>
+        <footer>
+            {{ range $topic := . }}
+                <a {{ if not $topic.Completed }}href="/voice/{{ $topic.User }}/{{ $topic.Topic }}/listen"{{ end }} class="button pseudo stack " {{ if $topic.Completed }}disabled style="cursor: not-allowed;" {{ end }}>Topic {{ $topic.Topic }}</a>
+            {{ end }}
+        </footer>
+    </article>
+</main>
+</body>
+</html>

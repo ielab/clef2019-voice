@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    {{ template "libraries" }}
+</head>
+<body>
+{{ template "nav" }}
+<main>
+    <article class="card">
+        <header>
+            <h1>Something bad happened!</h1>
+        </header>
+        <footer>
+            <p>Does this help?</p>
+            <p><em>{{ .Error }}</em></p>
+            <button class="pseudo" onclick="window.history.back()">take me back!</button>
+        </footer>
+    </article>
+</main>
+</body>
+</html>

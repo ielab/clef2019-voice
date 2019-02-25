@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CLEF2019 Query Voice</title>
+    {{ template "libraries" }}
+</head>
+<body>
+{{ template "nav" }}
+<main>
+    <article class="card">
+        <header><h2>access CLEF2019 query voice study</h2></header>
+        <footer>
+            <label><input type="text" id="id" placeholder="participant id"></label>
+            <button id="submit" class="button">submit</button>
+        </footer>
+    </article>
+</main>
+<script type="text/javascript">
+    var el = document.getElementById("id");
+    document.getElementById("submit").onclick = function () {
+        window.location.href = "/voice/" + el.value;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CLEF2019 | Write {{ .Topic }}</title>
+    {{ template "libraries" }}
+</head>
+<body>
+{{ template "nav" }}
+<main>
+    <article class="card">
+        <header>
+            <h2>Listen back to your query for topic {{ .Topic }}.</h2>
+        </header>
+        <footer>
+            <audio controls preload="auto" src="/audio/{{ .Filename }}" type="audio/wav"></audio>
+        </footer>
+    </article>
+
+    <article class="card">
+        <header>
+            <h2>Write down what you heard.</h2>
+        </header>
+        <footer>
+            <form action="/voice/{{ .User }}/{{ .Topic }}/confirm" method="post">
+                <label><input type="text" name="q" placeholder="enter query here"></label>
+                <button type="submit">submit</button>
+            </form>
+        </footer>
+    </article>
+</main>
+</body>
+</html>
