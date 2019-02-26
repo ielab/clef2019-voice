@@ -23,7 +23,6 @@
             <button class="button error" id="start-recording">start</button>
             <button class="button error" id="stop-recording" disabled>stop</button>
             <div id="audios-container"></div>
-            <div id="time-interval"></div>
             <div>
                 <a href="javascript:window.location = window.location.href" class="pseudo button">new recording</a>
             </div>
@@ -32,13 +31,13 @@
 
     <article class="card">
         <footer>
-            <button onclick="javascript:window.location.href = '{{ template "basedir" }}/voice/{{ .User }}/{{ .Topic }}/write'" id="next" class="button" style="float: right;margin-bottom: 12pt" disabled>continue</button>
+            <button onclick="javascript:window.location.href = '{{ template "basedir" }}/voice/{{ .User }}/{{ .Topic }}/write/'" id="next" class="button" style="float: right;margin-bottom: 12pt" disabled>continue</button>
         </footer>
     </article>
 </main>
 </body>
-<script src="/static/MediaStreamRecorder.js" type="text/javascript"></script>
-<script src="/static/ConcatenateBlobs.js" type="text/javascript"></script>
+<script src="{{ template "basedir" }}/static/MediaStreamRecorder.js" type="text/javascript"></script>
+<script src="{{ template "basedir" }}/static/ConcatenateBlobs.js" type="text/javascript"></script>
 <script type="text/javascript">
     function captureUserMedia(mediaConstraints, successCallback, errorCallback) {
         navigator.mediaDevices.getUserMedia(mediaConstraints).then(successCallback).catch(errorCallback);
@@ -68,7 +67,8 @@
                 console.log(e)
             };
             req.send(blob);
-            document.querySelector('#next').disabled = false
+            document.querySelector('#next').disabled = false;
+            document.querySelector('#stop-recording').innerHTML = "<p>You have made a recording. Press next to continue.</p>"
         });
     };
 

@@ -22,7 +22,7 @@
             <h2>Write down what you heard.</h2>
         </header>
         <footer>
-            <form action="{{ template "basedir" }}/voice/{{ .User }}/{{ .Topic }}/confirm" method="post">
+            <form action="{{ template "basedir" }}/voice/{{ .User }}/{{ .Topic }}/confirm/" method="post">
                 <label><input type="text" name="q" placeholder="enter query here"></label>
                 <button type="submit">submit</button>
             </form>

@@ -9,7 +9,7 @@
 <main>
     <article class="card">
         <header>
-            <h1><a href="{{ template "basedir" }}/admin">admin</a> - user management</h1>
+            <h1><a href="{{ template "basedir" }}/admin/">admin</a> - user management</h1>
         </header>
         <footer>
             {{ range $user := .Users }}
@@ -22,7 +22,7 @@
                         </div>
                     {{ end }}
                 </div>
-                <form action="{{ template "basedir" }}/admin/user/remove" method="post">
+                <form action="{{ template "basedir" }}/admin/user/remove/" method="post">
                     <label>
                         <input type="hidden" name="user" value="{{ $user.Name }}">
                         <button type="submit">remove participant</button>
@@ -31,7 +31,7 @@
                 <hr/>
             {{ end }}
 
-            <form action="{{ template "basedir" }}/admin/user/add" method="post">
+            <form action="{{ template "basedir" }}/admin/user/add/" method="post">
                 <label>name:<input name="user" type="text"></label>
                 <p>assign topics:</p>
                 <div class="flex five">
