@@ -62,7 +62,7 @@
         ConcatenateBlobs(mediaRecorder.blobs(), mediaRecorder.blobs()[0].type, function (blob) {
             console.log(blob);
             var req = new XMLHttpRequest();
-            req.open("post", "{{ template "basedir" }}/voice/{{ .User }}/{{ .Topic }}/write", true);
+            req.open("post", "{{ template "basedir" }}/voice/{{ .User }}/{{ .Topic }}/write/", true);
             req.onload = function (e) {
                 console.log(e)
             };
