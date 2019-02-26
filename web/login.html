@@ -19,7 +19,7 @@
 <script type="text/javascript">
     var el = document.getElementById("id");
     document.getElementById("submit").onclick = function () {
-        window.location.href = "/voice/" + el.value;
+        window.location.href = "{{ template "basedir" }}/voice/" + el.value;
     }
 </script>
 </body>

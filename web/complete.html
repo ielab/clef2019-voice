@@ -14,7 +14,7 @@
         </header>
         <footer>
             <p>The queries that you entered matched. You will be redirected in <span id="remaining">3</span> seconds.</p>
-            <p><a href="/voice/{{ .User }}">skip waiting</a></p>
+            <p><a href="{{ template "basedir" }}/voice/{{ .User }}">skip waiting</a></p>
         </footer>
     </article>
 </main>
@@ -29,7 +29,7 @@
             el.innerText = i.toString();
         }, 1000);
         window.setTimeout(function () {
-            window.location.href = "/voice/{{ .User }}"
+            window.location.href = "{{ template "basedir" }}/voice/{{ .User }}"
         }, timeout)
     }
 </script>

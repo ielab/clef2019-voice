@@ -13,7 +13,7 @@
             <h2>Listen to topic {{ .Topic }}.</h2>
         </header>
         <footer>
-            <audio controls preload="auto" src="/topics/{{ .Topic }}.wav" type="audio/wav"></audio>
+            <audio controls preload="auto" src="{{ template "basedir" }}/topics/{{ .Topic }}.wav" type="audio/wav"></audio>
         </footer>
     </article>
 
@@ -32,7 +32,7 @@
 
     <article class="card">
         <footer>
-            <button onclick="javascript:window.location.href = '/voice/{{ .User }}/{{ .Topic }}/write'" id="next" class="button" style="float: right;margin-bottom: 12pt" disabled>continue</button>
+            <button onclick="javascript:window.location.href = '{{ template "basedir" }}/voice/{{ .User }}/{{ .Topic }}/write'" id="next" class="button" style="float: right;margin-bottom: 12pt" disabled>continue</button>
         </footer>
     </article>
 </main>
@@ -63,7 +63,7 @@
         ConcatenateBlobs(mediaRecorder.blobs(), mediaRecorder.blobs()[0].type, function (blob) {
             console.log(blob);
             var req = new XMLHttpRequest();
-            req.open("post", "/voice/{{ .User }}/{{ .Topic }}/write", true);
+            req.open("post", "{{ template "basedir" }}/voice/{{ .User }}/{{ .Topic }}/write", true);
             req.onload = function (e) {
                 console.log(e)
             };

@@ -13,7 +13,7 @@
             <h2>Listen back to your query for topic {{ .Topic }} a second time.</h2>
         </header>
         <footer>
-            <audio controls preload="auto" src="/audio/{{ .Filename }}" type="audio/wav"></audio>
+            <audio controls preload="auto" src="{{ template "basedir" }}/audio/{{ .Filename }}" type="audio/wav"></audio>
         </footer>
     </article>
 
@@ -22,7 +22,7 @@
             <h2>Confirm what you heard by writing down what you heard again.</h2>
         </header>
         <footer>
-            <form action="/voice/{{ .User }}/{{ .Topic }}/complete" method="post">
+            <form action="{{ template "basedir" }}/voice/{{ .User }}/{{ .Topic }}/complete" method="post">
                 <label><input type="text" name="q" placeholder="enter query here"></label>
                 <button type="submit">submit</button>
             </form>

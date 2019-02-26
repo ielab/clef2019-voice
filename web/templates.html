@@ -1,5 +1,7 @@
+{{ define "basedir" }}{{ end }}
+
 {{ define "libraries" }}
-    <link rel="stylesheet" href="/static/picnic.min.css">
+    <link rel="stylesheet" href="{{ template "basedir" }}/static/picnic.min.css">
     <style>
         main {
             max-width: 960px;

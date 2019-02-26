@@ -9,7 +9,7 @@
 <main>
     <article class="card">
         <header>
-            <h1><a href="/admin">admin</a> - query data</h1>
+            <h1><a href="{{ template "basedir" }}/admin">admin</a> - query data</h1>
         </header>
         <footer>
             <div>
@@ -19,11 +19,11 @@
                     <div>
 
                         {{ range $export := .Exports }}
-                            <a href="/export/{{ $export }}" class="stack button pseudo">{{ $export }}</a>
+                            <a href="{{ template "basedir" }}/export/{{ $export }}" class="stack button pseudo">{{ $export }}</a>
                         {{ end }}
                     </div>
                 {{ end }}
-                <a href="/admin/data/export" class="button">export data</a>
+                <a href="{{ template "basedir" }}/admin/data/export" class="button">export data</a>
             </div>
             <hr/>
             <div>
@@ -50,7 +50,7 @@
                                 <td>{{ $topic.Topic }}</td>
                                 <td>{{ $topic.Query1 }}</td>
                                 <td>
-                                    <audio controls preload="auto" src="/audio/{{ $topic.Filename }}" type="audio/wav"></audio>
+                                    <audio controls preload="auto" src="{{ template "basedir" }}/audio/{{ $topic.Filename }}" type="audio/wav"></audio>
                                 </td>
 
                             {{ else }}

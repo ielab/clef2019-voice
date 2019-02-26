@@ -12,7 +12,7 @@
         <header><h2>Your assigned topics</h2></header>
         <footer>
             {{ range $topic := . }}
-                <a {{ if not $topic.Completed }}href="/voice/{{ $topic.User }}/{{ $topic.Topic }}/listen"{{ end }} class="button pseudo stack " {{ if $topic.Completed }}disabled style="cursor: not-allowed;" {{ end }}>Topic {{ $topic.Topic }}</a>
+                <a {{ if not $topic.Completed }}href="{{ template "basedir" }}/voice/{{ $topic.User }}/{{ $topic.Topic }}/listen"{{ end }} class="button pseudo stack " {{ if $topic.Completed }}disabled style="cursor: not-allowed;" {{ end }}>Topic {{ $topic.Topic }}</a>
             {{ end }}
         </footer>
     </article>
