@@ -64,11 +64,11 @@
             var req = new XMLHttpRequest();
             req.open("post", "{{ template "basedir" }}/voice/{{ .User }}/{{ .Topic }}/write/", true);
             req.onload = function (e) {
-                console.log(e)
+                console.log(e);
+                document.querySelector('#next').disabled = false;
+                document.querySelector('#stop-recording').innerHTML = "<p>You have made a recording. Press next to continue.</p>"
             };
             req.send(blob);
-            document.querySelector('#next').disabled = false;
-            document.querySelector('#stop-recording').innerHTML = "<p>You have made a recording. Press next to continue.</p>"
         });
     };
 
