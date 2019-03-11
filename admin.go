@@ -1,6 +1,7 @@
 package main
 
 import (
+	"archive/zip"
 	"encoding/csv"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -22,10 +23,12 @@ type AdminData struct {
 	Completed float64
 }
 
+// handleAdmin serves the admin page.
 func (s server) handleAdmin(c *gin.Context) {
 	c.HTML(http.StatusOK, "admin.html", nil)
 }
 
+// handleAdminUsers serves the admin page to manage users.
 func (s server) handleAdminUsers(c *gin.Context) {
 	users, err := s.getUsers()
 	if err != nil {
@@ -36,6 +39,7 @@ func (s server) handleAdminUsers(c *gin.Context) {
 	c.HTML(http.StatusOK, "users.html", AdminView{Users: users, Topics: s.topics})
 }
 
+// handleAdminAddUser handles adding a new user.
 func (s server) handleAdminAddUser(c *gin.Context) {
 	user := c.PostForm("user")
 	topics := c.PostFormArray("topics[]")
@@ -49,6 +53,7 @@ func (s server) handleAdminAddUser(c *gin.Context) {
 	s.handleAdminUsers(c)
 }
 
+// handleAdminRemoveUser handles removing a user.
 func (s server) handleAdminRemoveUser(c *gin.Context) {
 	user := c.PostForm("user")
 
@@ -61,6 +66,7 @@ func (s server) handleAdminRemoveUser(c *gin.Context) {
 	s.handleAdminUsers(c)
 }
 
+// handleAdminData handles the admin page summarising data.
 func (s server) handleAdminData(c *gin.Context) {
 	u, err := s.getUsers()
 	if err != nil {
@@ -113,6 +119,7 @@ func (s server) handleAdminData(c *gin.Context) {
 	})
 }
 
+// handleAdminDataExport handles downloading a completed report.
 func (s server) handleAdminDataExport(c *gin.Context) {
 	u, err := s.getUsers()
 	if err != nil {
@@ -153,4 +160,67 @@ func (s server) handleAdminDataExport(c *gin.Context) {
 	}
 
 	c.Redirect(http.StatusFound, fmt.Sprintf("/export/%s", filename))
+}
+
+// handleAdminVoiceClips handles downloading the completed voice clips for topics by users.
+func (s server) handleAdminVoiceClips(c *gin.Context) {
+	u, err := s.getUsers()
+	if err != nil {
+		c.HTML(http.StatusInternalServerError, "error.html", err)
+		panic(err)
+	}
+
+	w := zip.NewWriter(c.Writer)
+
+	for _, user := range u {
+		topics, err := s.getTopics(user.Name)
+		if err != nil {
+			c.HTML(http.StatusInternalServerError, "error.html", err)
+			panic(err)
+		}
+		for _, t := range topics {
+			if !t.Completed {
+				continue
+			}
+
+			fmt.Println(path.Join("./audio/", t.Filename))
+			f, err := os.OpenFile(path.Join("./audio/", t.Filename), os.O_RDONLY, 0664)
+			if err != nil {
+				c.HTML(http.StatusInternalServerError, "error.html", err)
+				panic(err)
+			}
+
+			a, err := w.Create(t.Filename)
+			if err != nil {
+				c.HTML(http.StatusInternalServerError, "error.html", err)
+				panic(err)
+			}
+
+			b, err := ioutil.ReadAll(f)
+			if err != nil {
+				c.HTML(http.StatusInternalServerError, "error.html", err)
+				panic(err)
+			}
+
+			_, err = a.Write(b)
+			if err != nil {
+				c.HTML(http.StatusInternalServerError, "error.html", err)
+				panic(err)
+			}
+
+			err = f.Close()
+			if err != nil {
+				c.HTML(http.StatusInternalServerError, "error.html", err)
+				panic(err)
+			}
+		}
+	}
+
+	err = w.Close()
+	if err != nil {
+		c.HTML(http.StatusInternalServerError, "error.html", err)
+		panic(err)
+	}
+
+	c.Writer.WriteHeader(200)
 }

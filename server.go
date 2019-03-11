@@ -100,6 +100,7 @@ func main() {
 		admin.POST("/user/remove", s.handleAdminRemoveUser)
 		admin.GET("/data", s.handleAdminData)
 		admin.GET("/data/export", s.handleAdminDataExport)
+		admin.GET("/data/audio.zip", s.handleAdminVoiceClips)
 	}
 
 	panic(http.ListenAndServe(":1313", g))
