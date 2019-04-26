@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -109,7 +108,15 @@ func (s server) completeHandler(c *gin.Context) {
 	t.Query2 = c.PostForm("q")
 
 	if t.Query1 != t.Query2 {
-		c.HTML(http.StatusInternalServerError, "error.html", fmt.Errorf("queries do not match"))
+		t, err := s.getTopic(user, topic)
+		if err != nil {
+			c.HTML(http.StatusInternalServerError, "error.html", err)
+			panic(err)
+		}
+
+		t.Error = "The queries you have entered do not match. Please enter both of them again."
+
+		c.HTML(http.StatusAccepted, "write.html", t)
 		panic(err)
 	}
 

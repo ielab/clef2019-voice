@@ -97,7 +97,7 @@ func (s server) handleAdminData(c *gin.Context) {
 
 	ratio := 0.0
 	if assigned > 0 {
-		ratio = completed / assigned
+		ratio = (completed / assigned) * 100
 	}
 
 	// First, get a list of files in the directory.

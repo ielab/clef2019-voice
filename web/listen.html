@@ -31,7 +31,7 @@
 
     <article class="card">
         <footer>
-            <button onclick="javascript:window.location.href = '{{ template "basedir" }}/voice/{{ .User }}/{{ .Topic }}/write/'" id="next" class="button" style="float: right;margin-bottom: 12pt" disabled>continue</button>
+            <button onclick="javascript:window.location.href = '{{ template "basedir" }}/voice/{{ .User }}/{{ .Topic }}/write/'" id="next" class="button" style="float: right;margin-bottom: 12pt" disabled>next</button>
         </footer>
     </article>
 </main>
@@ -62,7 +62,7 @@
         ConcatenateBlobs(mediaRecorder.blobs(), mediaRecorder.blobs()[0].type, function (blob) {
             console.log(blob);
             var req = new XMLHttpRequest();
-            req.open("post", "{{ template "basedir" }}/voice/{{ .User }}/{{ .Topic }}/write/", true);
+            req.open("post", "{{ template "basedir" }}/voice/{{ .User }}/{{ .Topic }}/write", true);
             req.onload = function (e) {
                 console.log(e);
                 document.querySelector('#next').disabled = false;

@@ -1,7 +1,8 @@
 package main
 
 type Topic struct {
-	User string
+	User  string
+	Error string
 
 	Topic     string `json:"topic"`
 	Filename  string `json:"filename"`
